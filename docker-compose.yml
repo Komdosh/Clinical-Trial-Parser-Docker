@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  ctm-cfg:
+    image: golang:latest
+    volumes:
+      - ./Clinical-Trial-Parser:/ctm
+      - ./cfg_parse_conf.sh:/ctm/cfg_parse_conf.sh
+    working_dir: /ctm
+    environment:
+      - RESOURCE_PATH=/ctm/src/resources
+      - DATA_PATH=/ctm/data
+    command: bash cfg_parse_conf.sh
+  ctm-ie:
+    image: golang:latest
+    volumes:
+      - ./Clinical-Trial-Parser:/ctm
+      - ./cfg_parse_conf.sh:/ctm/ctm/cfg_parse_conf.sh
+      - ./ie_parse_conf.sh:/ctm/ie_parse_conf.sh
+      - ./requirements.txt:/ctm/requirements.txt
+    working_dir: /ctm
+    environment:
+      - RESOURCE_PATH=/ctm/src/resources
+      - DATA_PATH=/ctm/data
+    command: bash ie_parse_conf.sh
